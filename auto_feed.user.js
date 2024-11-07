@@ -5,8 +5,8 @@
 // @contributor  daoshuailx/hollips/kmeng/wyyqyl/shmt86/sauterne
 // @description  PT一键转种脚本
 // @match        https://blutopia.cc/torrents?imdb=tt*
-// @namespace    https://greasyfork.org/zh-CN/scripts/516182-auto-feed
-// @updateURL    https://greasyfork.org/zh-CN/scripts/516182-auto-feed
+// @namespace    https://greasyfork.org/zh-CN/scripts/516183-auto-feed-lenoas
+// @updateURL    https://greasyfork.org/zh-CN/scripts/516183-auto-feed-lenoas
 // @match        http*://*/*detail*.php*
 // @match        https://nzbs.in/*
 // @match        http*://*/detail*.php*
