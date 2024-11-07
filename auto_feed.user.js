@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name         auto_feed
-// @author       tomorrow505
+// @name         auto_feed_Lenoas
+// @author       Lenoas改自tomorrow505大佬的脚本
 // @thanks       感谢宝大、86大佬、贝壳等大佬提供邀请码;感谢宝大、86大佬提供友情赞助;感谢86大佬、手大、kmeng、黑白、甘蔗等大佬赠予PTP积分.
 // @contributor  daoshuailx/hollips/kmeng/wyyqyl/shmt86/sauterne
 // @description  PT一键转种脚本
 // @match        https://blutopia.cc/torrents?imdb=tt*
-// @namespace    https://greasyfork.org/zh-CN/scripts/424132-auto-feed
-// @updateURL    https://greasyfork.org/zh-CN/scripts/424132-auto-feed
+// @namespace    https://greasyfork.org/zh-CN/scripts/516182-auto-feed
+// @updateURL    https://greasyfork.org/zh-CN/scripts/516182-auto-feed
 // @match        http*://*/*detail*.php*
 // @match        https://nzbs.in/*
 // @match        http*://*/detail*.php*
@@ -107,41 +107,7 @@
 
 /*
 日志：
-
-    2022年6月以前的日志请参看："https://github.com/tomorrow505/auto_feed_js/wiki/更新日志"
-    20220604：修复海豹部分bug，修复piggo部分bug。优化禁转判断后跳转逻辑。
-    20220605：新增图片提取功能：https://github.com/tomorrow505/auto_feed_js/wiki/图片处理
-    20220606：适配BTN另一个网址：https://backup.landof.tv/
-    20220608：适配PTChina。
-    20220612：ptgen若无豆瓣词条，可以获取imdb信息。
-    20220629：适配hdvideo，修复部分bug。
-    20220705：清洗种子部分内容并且适配外站转种直接发布。
-    20220706：适配多站发布完之后自动下载种子……(该部分还需要测试)
-    20220707：修复种子加载之后无效文件名的bug，修复BLU改版引起的bug. 优化洗种逻辑，适配WT-Sakura,冬樱。
-    20220708：适配支持TVV转出。
-    20220710：优化皮转入，修复GPW部分bug，简单支持一键签到(测试中)。
-    20220716：继续完善一键签到。修复部分bug。
-    20220726：支持MP4/MKV视频文件获取mediainfo+截图。功能待测试(已取消)...https://unpkg.com/auto-feed-media@1.0.1/index.js
-    20220730：适配MV类型转发，修复部分bug。
-    20220802：支持转入ITZMX、HDPt(明教)，修复1PTBA部分bug。(by shmt86)
-    20220807：一键签到取消天空和北洋，增加支持妞的转入。具体见教程：https://github.com/tomorrow505/auto_feed_js/wiki/%E8%BD%AC%E8%BD%BD%E5%88%B0BTN
-    20220808：适配海豚从gz音乐站转入。
-    20220816：适配OPS/RED从GZ音乐站转入。修复部分bug。
-    20220820：适配sugoimusic转出，修复部分bug。
-    20220920：支持HDT备用域名，支持CG转入，待测试。修复部分bug。
-    20221013：适配monika，修复部分bug。
-    20221021：适配织梦PT，修复部分bug。
-    20221103：适配红叶PT。
-    20221117：修复部分bug，去掉mediainfo和截图功能，鸡肋而且占用体积大。修复没有猫不能进入设置页面的bug。第一次NP站点应该都可以设置。
-    20221119：适配ICC2022。
-    20221128：适配DTR/HONE转出。
-
-    20230103：修复部分bug。
-    20230208：稍加完整适配朱雀。
-    20230413：修复部分bug，去掉一些关闭了的站。
-    20230511：适配转入 RS (西电睿思)。
-    20230708：修复部分bug。适配RouSi(by shmt86)。
-    20240526：适配新架构站点YemaPT(by lorentz)。
+20241107以前的日志请看明大的脚本
 */
 
 var site_url = decodeURI(location.href);
