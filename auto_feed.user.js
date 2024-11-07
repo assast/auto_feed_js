@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         auto_feed
-// @author       tomorrow505
+// @author       Lenoas 改自 tomorrow505大佬的脚本
 // @thanks       感谢宝大、86大佬、贝壳等大佬提供邀请码;感谢宝大、86大佬提供友情赞助;感谢86大佬、手大、kmeng、黑白、甘蔗等大佬赠予PTP积分.
 // @contributor  daoshuailx/hollips/kmeng/wyyqyl/shmt86/sauterne
 // @description  PT一键转种脚本
