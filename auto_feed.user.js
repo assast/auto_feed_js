@@ -14701,9 +14701,10 @@ function auto_feed() {
                     if (labels.gy){ check_label(document.getElementsByName('tags[4][]'), '5'); }
                     if (labels.yy){ check_label(document.getElementsByName('tags[4][]'), '11'); }
                     if (labels.zz){ check_label(document.getElementsByName('tags[4][]'), '6'); }
+                    debugger;
                     if (labels.diy){
                         check_label(document.getElementsByName('tags[4][]'), '4');
-                    } else if (raw_info.descr.match(/mpls/i)) {
+                    } else if (infos.mediainfo.match(/mpls/i)) {
                         check_label(document.getElementsByName('tags[4][]'), '17');
                     }
                     if (raw_info.standard_sel == '4K') {
