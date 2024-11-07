@@ -92,7 +92,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0
+// @version      1.0.0.0
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -973,9 +973,9 @@ const default_site_info = {
     'PTer': {'url': 'https://pterclub.com/', 'enable': 1},
     'HDDolby': {'url': 'https://www.hddolby.com/', 'enable': 1},
     'OurBits': {'url': 'https://ourbits.club/', 'enable': 1},
+    'HHClub': {'url': 'https://hhanclub.top/', 'enable': 1},
     'TTG': {'url': 'https://totheglory.im/', 'enable': 1},
     'CHDBits': {'url': "https://ptchdbits.co/", 'enable': 1},
-    'HHClub': {'url': 'https://hhanclub.top/', 'enable': 1},
     'DaJiao': {'url': 'https://dajiao.cyou/', 'enable': 1},
     'MTeam': {'url': 'https://kp.m-team.cc/', 'enable': 1},
     '1----------': {'url': '', 'enable': 1},
@@ -984,8 +984,6 @@ const default_site_info = {
     '红叶': {'url': 'https://leaves.red/', 'enable': 1},
     'HDfans': {'url': 'http://hdfans.org/', 'enable': 1},
     'HDPt': {'url': 'https://hdpt.xyz/', 'enable': 1},
-    '2----------': {'url': '', 'enable': 1},
-
     'BTSchool': {'url': 'https://pt.btschool.club/', 'enable': 1},
     'HDArea': {'url': 'https://hdarea.club/', 'enable': 1},
     '52PT': {'url': 'https://52pt.site/', 'enable': 1},
@@ -1014,7 +1012,6 @@ const default_site_info = {
     'CrabPt': {'url': 'https://crabpt.vip/', 'enable': 1},
     'RouSi': {'url': 'https://rousi.zip/', 'enable': 1},
     'PTChina': {'url': 'https://ptchina.org/', 'enable': 1},
-    '分隔符3----------': {'url': '', 'enable': 1},
     'PTT': {'url': 'https://www.pttime.org/', 'enable': 1},
     'FNP': {'url': 'https://fearnopeer.com/', 'enable': 1},
     '影': {'url': 'https://star-space.net/', 'enable': 1},
@@ -1024,7 +1021,6 @@ const default_site_info = {
     'HDSky': {'url': 'https://hdsky.me/', 'enable': 1},
     'BLU': {'url': 'https://blutopia.cc/', 'enable': 1},
     'GGPT': {'url': 'https://www.gamegamept.com/', 'enable': 1},
-    '分隔符4----------': {'url': '', 'enable': 1},
 
     '1PTBA': {'url': 'https://1ptba.com/', 'enable': 1},
     '52PT': {'url': 'https://52pt.site/', 'enable': 1},
