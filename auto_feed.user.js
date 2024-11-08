@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.1
+// @version      1.0.0.2
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -2553,30 +2553,31 @@ String.prototype.get_label = function(){
         }
     }
     // assast 新增日语、韩语标签判断，主要用于杜比
-    if (my_string.match(/(Audio.*?[\s\S]*?Japanese|◎语.*?言.*?日语)/i)){
-        var sub_str = my_string.match(/(Audio.*?[\s\S]*?Japanese|◎语.*?言.*?日语)/i)[0];
+    if (my_string.match(/(Audio.*?[\s\S]*?Japanese)/i)){
+        var sub_str = my_string.match(/(Audio.*?[\s\S]*?Japanese)/i)[0];
         if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/)) {
             labels.ry = true;
         }
     }
-    if (my_string.match(/(Audio.*?[\s\S]*?Korean|◎语.*?言.*?韩语)/i)){
-        var sub_str = my_string.match(/(Audio.*?[\s\S]*?Korean|◎语.*?言.*?韩语)/i)[0];
+    if (my_string.match(/(Audio.*?[\s\S]*?Korean)/i)){
+        var sub_str = my_string.match(/(Audio.*?[\s\S]*?Korean)/i)[0];
         if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/)) {
             labels.hy = true;
         }
     }
-    if (my_string.match(/(Audio.*English|◎语.*?言.*?英语)/i)){
-        labels.en = true;
-    }
-    try {
-        var audio = my_string.match(/Audio[\s\S]*?English/)[0].split('Text')[0];
-        if (audio.match(/Language.*?English/)) {
+    if (my_string.match(/(Audio.*?[\s\S]*?English)/i)){
+        var sub_str = my_string.match(/(Audio.*?[\s\S]*?English)/i)[0];
+        if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/)) {
             labels.en = true;
         }
-    } catch (err) {}
-    if (name.match(/(粤.{0,3}语|粤.{0,3}配|Audio.*cantonese)/i)){
-        labels.yy = true;
     }
+    if (my_string.match(/(Audio.*?[\s\S]*?cantonese)/i)){
+        var sub_str = my_string.match(/(Audio.*?[\s\S]*?cantonese)/i)[0];
+        if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/)) {
+            labels.yy = true;
+        }
+    }
+
     if (name.match(/DIY|-.*?@(MTeam|CHDBits|HDHome|OurBits|HDChina|Language|TTG|Pter|HDSky|Audies|CMCT|Dream|Audies)/i) && my_string.match(/mpls/i)){
         labels.diy = true;
     }
