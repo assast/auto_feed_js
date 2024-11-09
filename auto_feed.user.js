@@ -2947,7 +2947,8 @@ function get_mediainfo_picture_from_descr(descr){
     mediainfo = mediainfo.replace(/\[\/?(font|size|quote|color).{0,80}?\]/ig, '');
     //获取图片
     var imgs = descr.split(/\[\/quote\]/).pop();
-    imgs = imgs.match(/(\[url=.*?\])?\[img\].*?\[\/img\](\[\/url\])?/g);
+    // assast 图床有些是大写的标签
+    imgs = imgs.match(/(\[url=.*?\])?\[img\].*?\[\/img\](\[\/url\])?/ig);
     try {
         if (imgs){
             imgs = imgs.filter((item)=>{
