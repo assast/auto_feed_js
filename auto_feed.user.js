@@ -6765,7 +6765,8 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
 
         $('#del_img_tag').click((e)=>{
             var origin_str = $('#picture').val();
-            origin_str = origin_str.replace(/\[\/?img\]/g, '');
+            // assast 部分图床是大写的IMG  比如imgbox
+            origin_str = origin_str.replace(/\[\/?img\]/ig, '');
             $('#result').val(origin_str);
         })
 
