@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.2
+// @version      1.0.0.3
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -15044,7 +15044,11 @@ function auto_feed() {
                     }
                     if (labels.complete){ check_label(document.getElementsByName('tags[4][]'), '14'); }
                     if (labels.hdr10) { check_label(document.getElementsByName('tags[4][]'), '7');}
-                    if (labels.hdr10plus) { check_label(document.getElementsByName('tags[4][]'), '13'); }
+                    if (labels.hdr10plus) { 
+                        // assast 青蛙居然hdr10+勾选了还让勾选hdr，那就按照他的来呗
+                        check_label(document.getElementsByName('tags[4][]'), '7');
+                        check_label(document.getElementsByName('tags[4][]'), '13'); 
+                    }
                     if (labels.db) { check_label(document.getElementsByName('tags[4][]'), '12'); }
                     if (raw_info.medium_sel == 'Remux') { check_label(document.getElementsByName('tags[4][]'), '15'); }
                     break;
@@ -20844,11 +20848,12 @@ function auto_feed() {
             //音频编码
             var audiocodec_box = $('select[name="audiocodec_sel[4]"]');
             switch (raw_info.audiocodec_sel){
-                case 'DTS-HD': audiocodec_box.val(13); break;
-                case 'DTS-HDMA:X 7.1': audiocodec_box.val(8); break;
+                // assast 麒麟DTS-HDHR、DTS:X 等好多音频编码选择错误
                 case 'DTS-HDMA': audiocodec_box.val(8); break;
-                // assast 麒麟DTS-HDHR类型选择错误
+                case 'DTS-HDMA:X 7.1': audiocodec_box.val(16); break;
                 case 'DTS-HDHR': audiocodec_box.val(19); break;
+                case 'DTS': audiocodec_box.val(3); break;
+                case 'DTS-HD': audiocodec_box.val(3); break;
                 case 'TrueHD': audiocodec_box.val(9); break;
                 case 'Atmos':
                     audiocodec_box.val(15);
@@ -20856,7 +20861,6 @@ function auto_feed() {
                         audiocodec_box.val(17);
                     }
                     break;
-                case 'DTS': audiocodec_box.val(3); break;
                 case 'AC3':
                     audiocodec_box.val(11);
                     if (raw_info.name.match(/DD[\+P]/i)) {
@@ -20864,10 +20868,15 @@ function auto_feed() {
                     }
                     break;
                 case 'AAC': audiocodec_box.val(6); break;
-                case 'Flac': audiocodec_box.val(1); break;
-                case 'APE': audiocodec_box.val(12); break;
                 case 'LPCM': audiocodec_box.val(10); break;
-                case 'WAV': audiocodec_box.val(13);
+                case 'APE': audiocodec_box.val(12); break;
+                case 'WAV': audiocodec_box.val(13);break;
+                case 'M4A': audiocodec_box.val(14); break;
+                case 'MPEG-2': case 'MPEG-4': audiocodec_box.val(18); break;
+                case 'Flac': audiocodec_box.val(1); break;
+                case 'MP3': audiocodec_box.val(4); break;
+                case 'OPUS': audiocodec_box.val(20); break;
+                default: audiocodec_box.val(7); break;
             }
             //分辨率
             var standard_box = $('select[name="standard_sel[4]"]');
