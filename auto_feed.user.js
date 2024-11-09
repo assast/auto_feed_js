@@ -2548,32 +2548,32 @@ String.prototype.get_label = function(){
     debugger;
     if (my_string.match(/([^多]国.{0,3}语|国.{0,3}配|台.{0,3}语|台.{0,3}配)|(Audio.*?[\s\S]*?Chinese|Audio.*?[\s\S]*?mandarin)/i)){
         var sub_str = my_string.match(/([^多]国.{0,3}语|国.{0,3}配|台.{0,3}语|台.{0,3}配)|(Audio.*?[\s\S]*?Chinese|Audio.*?[\s\S]*?mandarin)/i)[0];
-        if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/)) {
+        if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/i)) {
             labels.gy = true;
         }
     }
     // assast 新增日语、韩语标签判断，主要用于杜比
     if (my_string.match(/(Audio.*?[\s\S]*?Japanese)/i)){
         var sub_str = my_string.match(/(Audio.*?[\s\S]*?Japanese)/i)[0];
-        if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/)) {
+        if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/i)) {
             labels.ry = true;
         }
     }
     if (my_string.match(/(Audio.*?[\s\S]*?Korean)/i)){
         var sub_str = my_string.match(/(Audio.*?[\s\S]*?Korean)/i)[0];
-        if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/)) {
+        if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/i)) {
             labels.hy = true;
         }
     }
     if (my_string.match(/(Audio.*?[\s\S]*?English)/i)){
         var sub_str = my_string.match(/(Audio.*?[\s\S]*?English)/i)[0];
-        if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/)) {
+        if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/i)) {
             labels.en = true;
         }
     }
     if (my_string.match(/(Audio.*?[\s\S]*?cantonese)/i)){
         var sub_str = my_string.match(/(Audio.*?[\s\S]*?cantonese)/i)[0];
-        if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/)) {
+        if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/i)) {
             labels.yy = true;
         }
     }
