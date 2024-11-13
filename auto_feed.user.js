@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.3
+// @version      1.0.0.4
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -20823,9 +20823,10 @@ function auto_feed() {
                 case 'UHD': medium_box.val(24); break;
                 case 'Blu-ray':
                     medium_box.val(25);
-                    if (labels.diy) {
-                        medium_box.val(26);
-                    }
+                    // assast 麒麟视频编码
+                    // if (labels.diy) {
+                    //     medium_box.val(26);
+                    // }
                     break;
                 case 'DVD': medium_box.val(27); break;
                 case 'Remux': medium_box.val(30); break;
