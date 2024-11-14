@@ -2095,14 +2095,16 @@ function walk_ptp(n) {
 }
 
 function deal_img_350(pic_info) {
+    debugger;
     var imgs = pic_info.match(/\[img\].*?(jpg|png).*?\[\/img\]/g);
     if (imgs) {
         imgs.map((item)=>{
             var img_url = item.match(/http.*?(png|jpg)/)[0];
-            if (img_url.match(/ptpimg/)) {
+            // assast 外站要缩略图 不知道为啥要限定ptpimg 这里去掉
+            // if (img_url.match(/ptpimg/)) {
                 var new_imgs = `[url=${img_url}]${item.replace('[img]', '[img=350x350]')}[/url]`;
                 pic_info = pic_info.replace(item, new_imgs);
-            }
+            // }
         })
     }
     return pic_info;
