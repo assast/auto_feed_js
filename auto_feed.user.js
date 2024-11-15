@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.4
+// @version      1.0.0.5
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -14530,9 +14530,13 @@ function auto_feed() {
                     $('textarea[name="descr"]').val(raw_info.descr.trim().replace(/\n\n+/g, '\n\n').replace(/\]\n\n\[/g, '\]\n\['));
                 } else {
                     try{
+                        debugger;
                         var extra_info = raw_info.descr.match(/^\[quote\]\[b\]\[color=blue\].*?官组作品，感谢原制作者发布。\[\/color\]\[\/b\]\[\/quote\]/)[0];
                         $('textarea[name="descr"]').val(extra_info);
-                    } catch (err) {}
+                    } catch (err) {
+                        // assast PTLGS必须要转载信息, 写死默认转载自audiences，感谢原制作者发布。
+                        $('textarea[name="descr"]').val('[quote][b][color=blue]转载自audiences，感谢原制作者发布。[/color][/b][/quote]\n');
+                    }
                 }
             } catch(Err) {
                 if (raw_info.full_mediainfo){
