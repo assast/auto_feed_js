@@ -6787,7 +6787,7 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
         // assast 图片提取新增3个小功能
         $('#del_img_wz_assast').click((e)=>{
             var origin_str = $('#picture').val();
-            images = origin_str.match(/\[img\]http[^\[\]]*?(jpg|png)\[\/img\]/ig);
+            images = origin_str.match(/\[img.*?\]http[^\[\]]*?(jpg|png)\[\/img\]/ig)
 
             resultImgs = [];
             if (images.length) {
@@ -6801,7 +6801,7 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
         })
         $('#del_img_hh_assast').click((e)=>{
             var origin_str = $('#picture').val();
-            images = origin_str.match(/\[img\]http[^\[\]]*?(jpg|png)\[\/img\]/ig);
+            images = origin_str.match(/\[img.*?\]http[^\[\]]*?(jpg|png)\[\/img\]/ig)
 
             resultImgs = [];
             if (images.length) {
@@ -6814,7 +6814,7 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
         })
         $('#del_img_ssd_assast').click((e)=>{
             var origin_str = $('#picture').val();
-            images = origin_str.match(/\[img\]http[^\[\]]*?(jpg|png)\[\/img\]/ig);
+            images = origin_str.match(/\[img.*?\]http[^\[\]]*?(jpg|png)\[\/img\]/ig)
 
             resultImgs = [];
             if (images.length) {
