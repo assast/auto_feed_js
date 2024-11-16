@@ -6720,9 +6720,10 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
         });
 
         $table.append(`<tr style="display:none;"><td width="1%" class="rowhead nowrap" valign="top" align="right">图片处理</td><td width="99%" class="rowfollow" valign="top" align="left" id="dealimg"></td></tr>`);
-        // assast 图片提取新增2个小功能
-        $('#dealimg').append(`<input type="button" id="del_img_tag_assast" value="去除外层url" style="margin-bottom:5px;margin-right:5px">`);
-        $('#dealimg').append(`<input type="button" id="enter2space_assast" value="换行->逗号" style="margin-bottom:5px;margin-right:5px">`);
+        // assast 图片提取新增3个小功能
+        $('#dealimg').append(`<input type="button" id="del_img_wz_assast" value="to外站" style="margin-bottom:5px;margin-right:5px">`);
+        $('#dealimg').append(`<input type="button" id="del_img_hh_assast" value="toHH" style="margin-bottom:5px;margin-right:5px">`);
+        $('#dealimg').append(`<input type="button" id="del_img_ssd_assast" value="toSSD" style="margin-bottom:5px;margin-right:5px">`);
         $('#dealimg').append(`<input type="button" id="preview" value="图片预览" style="margin-bottom:5px;">`);
         $('#dealimg').append(`<input type="button" id="getsource" value="获取大图" style="margin-bottom:5px;margin-left:5px">`);
         $('#dealimg').append(`<input type="button" id="send_ptpimg" value="转ptpimg" style="margin-bottom:5px;margin-left:5px">`);
@@ -6783,32 +6784,46 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
             origin_str = origin_str.replace(/\n/g, ' ');
             $('#picture').val(origin_str);
         })
-        // assast 图片提取新增2个小功能
-        $('#del_img_tag_assast').click((e)=>{
-            function deal_img_assast(pic_info) {
-                var imgs = pic_info.match(/\[img\].*?(jpg|png).*?\[\/img\]/g);
-                if (imgs) {
-                    imgs.map((item)=>{
-                        var img_url = item.match(/http.*?(png|jpg)/)[0];
-                        if (img_url.match(/ptpimg/)) {
-                            var new_imgs = `[url=${img_url}]${item}[/url]`;
-                            pic_info = pic_info.replace(item, new_imgs);
-                        }
-                    })
-                }
-                return pic_info;
-            }
-
+        // assast 图片提取新增3个小功能
+        $('#del_img_wz_assast').click((e)=>{
             var origin_str = $('#picture').val();
-            images = origin_str.match(/\[img\]http[^\[\]]*?(jpg|png)\[\/img\]/ig).join('\n');
+            images = origin_str.match(/\[img\]http[^\[\]]*?(jpg|png)\[\/img\]/ig);
+
+            resultImgs = [];
             if (images.length) {
-                $('#result').val(deal_img_assast(images));
+                images.map((item)=>{
+                    var img_url = item.match(/http.*?(png|jpg)/)[0];
+                    var new_imgs = `[url=${img_url}]${item.replace('[img]', '[img=350x350]').replace('[IMG]', '[IMG=350x350]')}[/url]`;
+                    resultImgs.push(new_imgs);
+                })
+                $('#result').val(resultImgs.join(" "));
             }
         })
-        $('#enter2space_assast').click((e)=>{
+        $('#del_img_hh_assast').click((e)=>{
             var origin_str = $('#picture').val();
-            origin_str = origin_str.replace(/\n/g, ',');
-            $('#picture').val(origin_str);
+            images = origin_str.match(/\[img\]http[^\[\]]*?(jpg|png)\[\/img\]/ig);
+
+            resultImgs = [];
+            if (images.length) {
+                images.map((item)=>{
+                    var img_url = item.match(/http.*?(png|jpg)/)[0];
+                    resultImgs.push(img_url);
+                })
+                $('#result').val(resultImgs.join(","));
+            }
+        })
+        $('#del_img_ssd_assast').click((e)=>{
+            var origin_str = $('#picture').val();
+            images = origin_str.match(/\[img\]http[^\[\]]*?(jpg|png)\[\/img\]/ig);
+
+            resultImgs = [];
+            if (images.length) {
+                images.map((item)=>{
+                    var img_url = item.match(/http.*?(png|jpg)/)[0];
+                    resultImgs.push(img_url);
+                })
+                $('#result').val(resultImgs.join("\n"));
+            }
         })
 
         $('#send_ptpimg').click((e)=>{
