@@ -1857,7 +1857,7 @@ const reg_team_name = {
     'HaresClub': /Hares?WEB|HaresTV|DIY@Hares|-hares/i,
     'HDPt': /hdptweb/i,
     'Panda': /AilMWeb|-PANDA|@Panda/i,
-    'UBits': /@UBits|-UBits/,
+    'UBits': /@UBits|-UBits|-UBWEB/i,//assast 添加UBWEB官组
     'PTCafe': /CafeWEB|CafeTV|DIY@PTCafe/i,
     '影': /Ying(WEB|DIY|TV|MV|MUSIC)?$/i,
     'DaJiao': /DJWEB|DJTV/i,
@@ -1876,6 +1876,7 @@ const reg_team_name = {
 };
 
 function add_thanks(descr) {
+    debugger;
     const thanks_str = "[quote][b][color=blue]{site}官组作品，感谢原制作者发布。[/color][/b][/quote]\n\n{descr}";
     for (var key in reg_team_name) {
         if (raw_info.name.match(reg_team_name[key]) && !raw_info.name.match(/PandaMoon|HDSpace|HDClub|LCHD/i)) {
@@ -14988,7 +14989,8 @@ function auto_feed() {
                     break;
                 case 'ZMPT':
                     if (labels.gy){ $('input[name="tags[4][]"][value="5"]').attr('checked', true); }
-                    if (labels.yy){ $('input[name="tags[4][]"][value="5"]').attr('checked', true); }
+                    // assast 织梦粤语标签错误 20241205
+                    if (labels.yy){ $('input[name="tags[4][]"][value="15"]').attr('checked', true); }
                     if (labels.zz){ $('input[name="tags[4][]"][value="6"]').attr('checked', true); }
                     if (labels.diy){ $('input[name="tags[4][]"][value="4"]').attr('checked', true); }
                     if (labels.hdr10 || labels.hdr10plus) { try { $('input[name="tags[4][]"][value="7"]').attr('checked', true); } catch(err) {}}
