@@ -95,7 +95,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.10
+// @version      1.0.0.11
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -6816,7 +6816,7 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
             if (images.length) {
                 images.map((item)=>{
                     var img_url = item.match(/http.*?(png|jpg)/)[0];
-                    var new_imgs = `[url=${img_url}][img=350]${img_url}[/img][/url]`;
+                    var new_imgs = `[url=${img_url}][img=350x350]${img_url}[/img][/url]`;
                     resultImgs.push(new_imgs);
                 })
                 $('#result').val(resultImgs.join(" "));

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SpringSunday-Torrent-Assistant 测试版
 // @namespace    http://tampermonkey.net/
-// @version      1.2.25
+// @version      1.2.27
 // @description  春天审种助手
 // @author       SSD
 // @include      http*://springsunday.net/details.php*
@@ -541,7 +541,7 @@
             $('#assistant-tooltips').append('主标题包含禁发小组，请检查<br/>');
             error = true;
         }
-        if(/-(.*?@)?(Eleph|HDH|HDS(?!WEB)|HDHome|HDSky|Dream(?!Ru)|DYZ-Movie)/i.test(title_lowercase)){
+        if(/-(.*?@)?(Eleph|HDH|HDS(?!TV)|HDHome|HDSky|HDSWEB|Dream(?!Ru)|DYZ-Movie)/i.test(title_lowercase)){
             $('#assistant-tooltips').append('主标题包含不受信小组，请检查<br/>');
             error = true;
         }
