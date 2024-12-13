@@ -95,7 +95,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.11
+// @version      1.0.0.12
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -6819,7 +6819,7 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
                     var new_imgs = `[url=${img_url}][img=350x350]${img_url}[/img][/url]`;
                     resultImgs.push(new_imgs);
                 })
-                $('#result').val(resultImgs.join(" "));
+                $('#result').val(resultImgs.join(""));
             }
         })
         $('#del_img_hh_assast').click((e)=>{
@@ -7085,11 +7085,13 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
 
 //长mediainfo转换简洁版mediainfo
 function simplifyMI(mediainfo_text, site){
+    debugger;
     var simplifiedMI = '';
     if (mediainfo_text.match(/QUICK SUMMARY/i)) {
         return mediainfo_text;
     }
-    if (mediainfo_text.match(/Disc INFO/i)) {
+
+    if (mediainfo_text.match(/Disc INFO/i) || mediainfo_text.match(/Disc Size/i) ) {
         if (site == 'HDT') {
             return mediainfo_text;
         }
@@ -7225,7 +7227,7 @@ function get_text_info(text_info){
 }
 
 function full_bdinfo2summary(descr) {
-    if (!descr.match(/DISC INFO/)) {
+    if (!descr.match(/DISC INFO/i) && !descr.match(/DISC Size/i)) {
         return descr.split(/\[\/quote\]/)[0].replace('[quote]', '');
     }
     var summary = {
