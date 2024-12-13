@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         SpringSunday-Torrent-Assistant 测试版
-// @namespace    http://tampermonkey.net/
+// @name         SpringSunday-Torrent-Assistant 测试版魔改
+// @namespace    SpringSunday-Torrent-Assistant-assast
 // @version      1.2.27
 // @description  春天审种助手
 // @author       SSD
@@ -19,8 +19,6 @@
 // @connect      ptpimg.me
 // @connect      ibb.pics
 // @license      MIT
-// @downloadURL https://update.greasyfork.org/scripts/494560/SpringSunday-Torrent-Assistant%20%E6%B5%8B%E8%AF%95%E7%89%88.user.js
-// @updateURL https://update.greasyfork.org/scripts/494560/SpringSunday-Torrent-Assistant%20%E6%B5%8B%E8%AF%95%E7%89%88.meta.js
 // ==/UserScript==
 
 (function () {
