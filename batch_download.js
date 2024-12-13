@@ -9,6 +9,7 @@
 // @match        https://fearnopeer.com/torrents*
 // @match        https://www.torrentleech.cc/torrents/browse*
 // @grant        none
+// @license MIT
 // ==/UserScript==
 var site_url = decodeURI(location.href);
 
