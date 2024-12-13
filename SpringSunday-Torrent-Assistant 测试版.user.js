@@ -27,7 +27,7 @@
     //种审判断
     //=====================================
     var isEditor;
-    if (GM_info.script.name === "SpringSunday-Torrent-Assistant 测试版") {
+    if (GM_info.script.name === "SpringSunday-Torrent-Assistant 测试版魔改") {
         isEditor= GM_getValue('isEditor', true);
     }else {
         isEditor= GM_getValue('isEditor', false);
