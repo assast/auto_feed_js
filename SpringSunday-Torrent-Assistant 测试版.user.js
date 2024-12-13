@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SpringSunday-Torrent-Assistant 测试版魔改
 // @namespace    SpringSunday-Torrent-Assistant-assast
-// @version      1.2.27
+// @version      1.2.28
 // @description  春天审种助手
 // @author       SSD
 // @include      http*://springsunday.net/details.php*
@@ -1398,7 +1398,7 @@
         }
     }
 
-    if ((window.location.href.includes("/torrents.php") || window.location.href.includes("offers.php"))&& GM_info.script.name === "SpringSunday-Torrent-Assistant 测试版") {
+    if ((window.location.href.includes("/torrents.php") || window.location.href.includes("offers.php"))&& GM_info.script.name === "SpringSunday-Torrent-Assistant 测试版魔改") {
         enhanceTorrentsPage();
     }
 
@@ -1406,7 +1406,7 @@
     // 4. << 快速添加回复的修改意见 >>
     // 快速添加 对应问题/标准回答 的答复
     // ===========================================
-    if (window.location.href.includes("/details.php") && GM_info.script.name === "SpringSunday-Torrent-Assistant 测试版") {
+    if (window.location.href.includes("/details.php") && GM_info.script.name === "SpringSunday-Torrent-Assistant 测试版魔改") {
 
         const comments = [
             "请重新截取 png 格式原图",
