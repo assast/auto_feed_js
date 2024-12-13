@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         批量下载种子
 // @namespace    batch_download
-// @version      0.2
+// @version      0.3
 // @description  u3d架构批量下载年以上的种子
 // @author       X
 // @match        https://blutopia.cc/torrents*
