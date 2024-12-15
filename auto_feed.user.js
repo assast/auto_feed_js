@@ -95,7 +95,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.13
+// @version      1.0.0.14
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -111,6 +111,7 @@
 
 /*
 日志：
+
     2022年6月以前的日志请参看："https://github.com/tomorrow505/auto_feed_js/wiki/更新日志"
     20220604：修复海豹部分bug，修复piggo部分bug。优化禁转判断后跳转逻辑。
     20220605：新增图片提取功能：https://github.com/tomorrow505/auto_feed_js/wiki/图片处理
@@ -3517,20 +3518,20 @@ function init_remote_server_button() {
             background-color: #333;
             border: 1px solid #ccc;
         }
-        
+
         #sidebar ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-        
+
         #sidebar li {
             list-style: none;
             padding: 0;
             margin: 0;
             width: 100%;
         }
-        
+
         #sidebar li a {
             display: flex;
             justify-content: center;
@@ -3539,11 +3540,11 @@ function init_remote_server_button() {
             text-decoration: none;
             color: #fff;
         }
-        
+
         #sidebar li a:hover {
             background-color: #555;
         }
-        
+
         #sidebar .submenu {
             display: none;
             position: absolute;
@@ -3553,18 +3554,18 @@ function init_remote_server_button() {
             background-color: #444;
             border: 1px solid #ccc;
         }
-        
+
         #sidebar li:hover .submenu {
             display: block;
         }
-        
+
         #sidebar .submenu li a {
             display: flex;
             justify-content: center;
             align-items: center;
             color: #eee;
         }
-        
+
         #sidebar .submenu li a:hover {
             background-color: #666;
         }
@@ -3573,7 +3574,7 @@ function init_remote_server_button() {
         <div id="sidebar">
             <ul id="sidebar_ul">
             </ul>
-        </div> 
+        </div>
     `);
     var qb = remote_server.qbittorrent;
     for (let server in qb) {
@@ -14852,13 +14853,15 @@ function auto_feed() {
                     if (raw_info.name.match(/HLG/)) { document.getElementById('hlg').checked=true; }
                     break;
                 case 'OurBits':
-                    if (labels.gy){ document.getElementById('tagGY').checked=true; }
-                    if (labels.yy){ document.getElementById('tagGY').checked=true; }
-                    if (labels.zz){ document.getElementById('tagZZ').checked=true; }
-                    if (labels.diy){ document.getElementById('tagDIY').checked=true; }
-                    if (labels.hdr10) { document.getElementById('tagHDR10').checked=true; }
-                    if (labels.hdr10plus) { document.getElementById('tagHDR10P').checked=true; }
-                    if (labels.db) { document.getElementById('tagDB').checked=true; }
+                    // assast ob标签错误 20241215
+                    if (labels.diy){ document.getElementById('tag_diy').checked=true; }
+                    if (labels.gy){ document.getElementById('tag_gy').checked=true; }
+                    if (labels.zz){ document.getElementById('tag_zz').checked=true; }
+                    if (labels.db) { document.getElementById('tag_db').checked=true; }
+                    if (labels.hdr10) { document.getElementById('tag_hdr').checked=true; }
+                    if (labels.hdr10plus) { document.getElementById('tag_hdrp').checked=true; }
+                    if (raw_info.name.match(/HLG/)) { document.getElementById('tag_hlg').checked=true;}
+
                     break;
                 case 'HaiDan':
                     if (labels.diy){ $('input[name="tag_list[]"][value=4]').attr('checked', true); }
