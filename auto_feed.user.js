@@ -95,7 +95,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.15
+// @version      1.0.0.16
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -13608,7 +13608,8 @@ function auto_feed() {
         if (raw_info.descr.match(/类[\s\S]{0,5}别[\s\S]{0,30}纪录片/i)) {
             raw_info.type = '纪录';
         } else if (raw_info.descr.match(/类[\s\S]{0,5}别[\s\S]{0,30}动画/i)) {
-            if (forward_site == 'PTer') {
+            // assast 动漫类别统一修复
+            if (['Audiences', 'CMCT', 'CHDBits', 'OurBits', 'UBits', 'LemonHD', '麒麟', 'AGSV', 'ZMPT', 'CarPt', 'QingWa', 'HDfans', '象岛','PTer','HDDolby'].indexOf(forward_site) >= 0) {
                 raw_info.type = '动漫';
             } else if (raw_info.type == '电影' && ['HUDBT', 'MTeam', 'TLFbits', 'HD4FANS', 'PuTao', 'TJUPT', 'NanYang', 'BYR', 'TTG'].indexOf(forward_site) < 0) {
                 raw_info.type = '动漫';
