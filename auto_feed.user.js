@@ -95,7 +95,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.14
+// @version      1.0.0.15
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -4165,6 +4165,8 @@ function addTorrent(url, name, forward_site, forward_announce) {
         name = name.replace(/\*/g, '');
     }
     name = name.replace(/^\[.*?\](\.| )?/, '').replace(/ /g, '.').replace(/\.-\./, '-').trim();
+    debugger;
+    // assast标记 添加种子
     if (url.match(/d8:announce/)) {
         build_blob_from_torrent(url, forward_announce, forward_site, "application/x-bittorrent", function(data){
             const blob = data.data;
@@ -10989,6 +10991,9 @@ function auto_feed() {
                 console.log(raw_info.torrent_url);
                 var detail = results[0];
                 raw_info.name = detail.name;
+                if(detail.originFileName && !raw_info.torrent_name){
+                    raw_info.torrent_name = detail.originFileName
+                }
                 if (detail.mediainfo) {
                     var mediainfo = detail.mediainfo;
                     try {
