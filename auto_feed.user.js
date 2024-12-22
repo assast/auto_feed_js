@@ -95,7 +95,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.16
+// @version      1.0.0.17
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -14986,7 +14986,13 @@ function auto_feed() {
                     if (labels.gy){ check_label(document.getElementsByName('tag_gy'), '1'); }
                     if (labels.yy){ check_label(document.getElementsByName('tag_yy'), '1'); }
                     if (labels.zz){ check_label(document.getElementsByName('tag_zz'), '1'); }
-                    if (labels.diy){ check_label(document.getElementsByName('tag_diy'), '1'); }
+                    debugger;
+                    // assast lemonhd标签错误 柠檬爱原盘 20241215
+                    if (labels.diy){
+                        check_label(document.getElementsByName('tag_diy'), '1');
+                    } else if (infos.mediainfo.match(/mpls/i)) {
+                        check_label(document.getElementsByName('tag_untouch'), '1');
+                    }
                     if (labels.hdr10 || labels.hdr10plus) { check_label(document.getElementsByName('tag_hdr'), '1'); }
                     if (labels.db) { check_label(document.getElementsByName('tag_dv'), '1'); }
                     break;
