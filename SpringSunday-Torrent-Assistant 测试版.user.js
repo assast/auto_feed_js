@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SpringSunday-Torrent-Assistant 测试版魔改
 // @namespace    SpringSunday-Torrent-Assistant-assast
-// @version      1.2.28
+// @version      1.2.32
 // @description  春天审种助手
 // @author       SSD
 // @include      http*://springsunday.net/details.php*
@@ -23,6 +23,7 @@
 
 (function () {
     'use strict';
+
     //种审判断
     //=====================================
     var isEditor;
@@ -694,6 +695,7 @@
             $('#assistant-tooltips').append('选择「活动」标签，未识别到「WEB-DL」<br/>');
             error = true;
         }
+        console.log("标签判断完成")
         if ((/◎/i.test(torrent_extra)) && !$('span[title="制作组"]').length > 0) {
             $('#assistant-tooltips').append('请移除附加信息中除致谢、制作信息以外的内容。<br/>');
             error = true;
@@ -712,7 +714,7 @@
             error = true;
         }
 
-        if (pngCount < 3 && (title_group === 1 || !title_group)) {
+        if (pngCount < 3 && (title_group === 1 || !title_group) && !(type === 7 && resolution === 1 && (is_hdr10 || is_hdr10p || is_hdr_vivid || is_dovi))) {
             $('#assistant-tooltips').append('PNG 格式的图片未满 3 张<br/>');
             error = true;
         }
@@ -755,6 +757,9 @@
         if (isEditor) {
 
             $('#editor-tooltips').append('↓以下检测较为激进，需配合人工判断↓<br/>');
+            if (!douban  && title_group !== 8 && area == 99) {
+                $('#editor-tooltips').append('地区为 Other 且无豆瓣链接，请人工核对<br/>');
+            }
             if (/第\s*?[\d一二三四五六七八九十百千]*(?:-\d+)?\s*?[集期]/i.test(subtitle) && !is_complete && (cat === 502 || cat === 503 || cat === 505) && (type === 5 || type ===7)) {
                 $('#editor-tooltips').append('中性：识别到单集，无需审核<br/>');
             }
@@ -783,7 +788,7 @@
                 $('#editor-tooltips').append('副标题识别到「原盘」相关字符，请检查是否有「原生」标签<br/>');
             }
             if (!audio_chinese && is_c_dub) {
-                $('#editor-tooltips').append('未包含有普通话配音的影片，禁止使用「国配」标签，请确认是否有普通话配音<br/>');
+                $('#editor-tooltips').append('未包含有普通话配音的影片，禁止使用「国配」标签<br/>');
             }
             if (/SUBtitleS:/.test(mediainfo_title)) {
                 $('#editor-tooltips').append('识别到「SUBtitleS:」相关字符，请检查BDInfo<br/>');
@@ -856,15 +861,15 @@
             }
             if (
                 (/^(?:Format).*?(DTS-HD|TrueHD|DTS:X|LPCM|Format\s+:\s+PCM\s+Format settings\s+:\s+Little\s+\/\s+Signed)/im.test(
-                        mediainfo_title
-                    ) ||
-                    audio === 1 ||
-                    audio === 2 ||
-                    audio === 6) &&
+                    mediainfo_title
+                ) ||
+                 audio === 1 ||
+                 audio === 2 ||
+                 audio === 6) &&
                 (resolution === 2 ||
-                    resolution === 3 ||
-                    resolution === 4 ||
-                    resolution === 5) &&
+                 resolution === 3 ||
+                 resolution === 4 ||
+                 resolution === 5) &&
                 (type === 6 || type === 8 || type === 9 || type === 10)
             ) {
                 $("#editor-tooltips").append("可替代：音频臃肿<br/>");
@@ -918,6 +923,7 @@
         // 豆瓣判断
         var douban_area = [], douban_cat;
         var isshow, isdoc, isani;
+
         if (douban) {
 
             var douban_genres = findDouban('◎类　　别')
@@ -933,7 +939,6 @@
             var douban_type = findDouban('◎类　　型').split(" / ")[0];
             var country = findDouban('◎产　　地').split(" / ");
             var language = findDouban('◎语　　言');
-            console.log('country' + country); // 打印找到的内容或null
 
             const areaMappings = [
                 { areas: ['中国', '中国大陆'], value: 1 },
@@ -944,17 +949,17 @@
                 { areas: ['韩国'], value: 6 },
                 { areas: ['泰国'], value: 9 },
                 { areas: ['阿尔巴尼亚', '爱尔兰', '爱沙尼亚', '安道尔', '奥地利', '白俄罗斯', '保加利亚',
-                        '北马其顿', '比利时', '冰岛', '波黑', '波兰', '丹麦', '德国', '法国',
-                        '梵蒂冈', '芬兰', '荷兰', '黑山', '捷克', '克罗地亚', '拉脱维亚', '立陶宛',
-                        '列支敦士登', '卢森堡', '罗马尼亚', '马耳他', '摩尔多瓦', '摩纳哥', '挪威',
-                        '葡萄牙', '瑞典', '瑞士', '塞尔维亚', '塞浦路斯', '圣马力诺', '斯洛伐克',
-                        '斯洛文尼亚', '乌克兰', '西班牙', '希腊', '匈牙利', '意大利', '英国',
-                        '安提瓜和巴布达', '巴巴多斯', '巴哈马', '巴拿马', '伯利兹', '多米尼加', '多米尼克',
-                        '格林纳达', '哥斯达黎加', '古巴', '海地', '洪都拉斯', '加拿大', '美国', '墨西哥',
-                        '尼加拉瓜', '萨尔瓦多', '圣基茨和尼维斯', '圣卢西亚', '圣文森特和格林纳丁斯',
-                        '特立尼达和多巴哥', '危地马拉', '牙买加', '阿根廷', '巴拉圭', '巴西', '秘鲁',
-                        '玻利维亚', '厄瓜多尔', '哥伦比亚', '圭亚那', '苏里南', '委内瑞拉', '乌拉圭',
-                        '智利', '捷克斯洛伐克','澳大利亚','西德','新西兰'], value: 4 },
+                          '北马其顿', '比利时', '冰岛', '波黑', '波兰', '丹麦', '德国', '法国',
+                          '梵蒂冈', '芬兰', '荷兰', '黑山', '捷克', '克罗地亚', '拉脱维亚', '立陶宛',
+                          '列支敦士登', '卢森堡', '罗马尼亚', '马耳他', '摩尔多瓦', '摩纳哥', '挪威',
+                          '葡萄牙', '瑞典', '瑞士', '塞尔维亚', '塞浦路斯', '圣马力诺', '斯洛伐克',
+                          '斯洛文尼亚', '乌克兰', '西班牙', '希腊', '匈牙利', '意大利', '英国',
+                          '安提瓜和巴布达', '巴巴多斯', '巴哈马', '巴拿马', '伯利兹', '多米尼加', '多米尼克',
+                          '格林纳达', '哥斯达黎加', '古巴', '海地', '洪都拉斯', '加拿大', '美国', '墨西哥',
+                          '尼加拉瓜', '萨尔瓦多', '圣基茨和尼维斯', '圣卢西亚', '圣文森特和格林纳丁斯',
+                          '特立尼达和多巴哥', '危地马拉', '牙买加', '阿根廷', '巴拉圭', '巴西', '秘鲁',
+                          '玻利维亚', '厄瓜多尔', '哥伦比亚', '圭亚那', '苏里南', '委内瑞拉', '乌拉圭',
+                          '智利', '捷克斯洛伐克','澳大利亚','西德','新西兰'], value: 4 },
                 { areas: ['苏联', '俄罗斯'], value: 8 }
             ];
             // 遍历映射表并检查 country 是否包含任何指定地区
@@ -1003,6 +1008,12 @@
                 $('#assistant-tooltips').append('豆瓣检测「动画」类别，未选择「动画」标签<br/>');
                 error = true;
             }
+            if(findDouban('◎上映日期') == ''){
+                $('#editor-tooltips').append('豆瓣未检测到年份，请检查<br/>');
+            }else if(findDouban('◎上映日期').match(/^(\d{4})/)[1] != title_lowercase.match(/\.(18[8-9][0-9]|19[0-9]{2}|200[0-9]|201[0-9]|202[0-9]|2030)\./)[1]){
+                $('#editor-tooltips').append('豆瓣与标题年份不匹配，请检查<br/>');
+            }
+
             if (!isani && is_anime) {
                 $('#assistant-tooltips').append('选择「动画」标签，豆瓣未识别到「动画」类别<br/>');
                 error = true;
@@ -1142,8 +1153,8 @@
                             const isDVDType = type === 10 || type === 3 || (type === 4 && /dvd/i.test(title_lowercase));
                             if (isDVDType) {
                                 const message = `DVD请人工确认截图分辨率，Mediainfo 高度为${cHeight} 宽度为${cWidth}<br>` +
-                                    `可能的正确截图宽度为 高度大于480时：${Math.floor(cWidth / 45 * 64)} 或 ${Math.floor(cWidth / 15 * 16)} ` +
-                                    `高度小等于480时：${Math.floor(cWidth / 9 * 8)} 或 ${Math.floor(cWidth / 27 * 32)}<br>`;
+                                      `可能的正确截图宽度为 高度大于480时：${Math.floor(cWidth / 45 * 64)} 或 ${Math.floor(cWidth / 15 * 16)} ` +
+                                      `高度小等于480时：${Math.floor(cWidth / 9 * 8)} 或 ${Math.floor(cWidth / 27 * 32)}<br>`;
                                 $('#editor-tooltips').append(message);
                                 error_img = true;
                             } else {
@@ -1238,6 +1249,7 @@
             trElements.forEach(tr => {
                 // 在当前tr中查找所有td元素
                 const tdElements = tr.querySelectorAll('td.rowhead.nowrap');
+
 
                 // 遍历这些td元素
                 tdElements.forEach(td => {
@@ -1406,7 +1418,30 @@
     // 快速添加 对应问题/标准回答 的答复
     // ===========================================
     if (window.location.href.includes("/details.php") && GM_info.script.name === "SpringSunday-Torrent-Assistant 测试版魔改") {
+        // 确保页面加载完成后执行
+        $(document).ready(function() {
+            // 找到目标元素
+            const target = $('td.rowhead.nowrap a[href="javascript: klappe_news(\'related\')"]');
 
+            if (target.length > 0) {
+                // 创建按钮
+                const button = $('<br><button>显示副标题</button>');
+
+                // 添加按钮到超链接后面
+                target.after(button);
+
+                // 按钮点击事件
+                button.on('click', function() {
+                    // 遍历处理 #krelated 表格中的每一行
+                    $('#krelated table tr').each(function() {
+                        var html = $(this).html();
+                        // 将注释转换为 HTML
+                        html = html.replace(/<!--\s*(.*?)\s*-->/g, '$1');
+                        $(this).html(html);
+                    });
+                });
+            }
+        });
         const comments = [
             "请重新截取 png 格式原图",
             "请参考截图及图床教程 [url=https://springsunday.net/forums.php?action=viewtopic&forumid=10&topicid=18105#pid389691] 教程 [/url] , 如该方法获取截图分辨率错误，右键视频->图像截取->按调整后的比例保存（取消勾选该选项，其余播放器同理）。",
