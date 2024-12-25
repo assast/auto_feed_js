@@ -95,7 +95,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.18
+// @version      1.0.0.19
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -2919,7 +2919,8 @@ const skip_img = [
     '[img]https://pic.imgdb.cn/item/6170004c2ab3f51d91c7782a.png[/img]',
     '[img]https://img.pterclub.com/images/CS.png[/img]',
     '[img]https://img.pterclub.com/images/2022/10/19/1.gif[/img]',
-    '[img]https://img93.pixhost.to/images/86/435614074_c5134549f13c2c087d67c9fa4089c49e-removebg-preview.png[/img]'
+    '[img]https://img93.pixhost.to/images/86/435614074_c5134549f13c2c087d67c9fa4089c49e-removebg-preview.png[/img]',
+    '[img]https://wawawa.me/team/frogteam.svg[/img]'
 ];
 
 //从简介拆分出来mediainfo和截图
@@ -2967,6 +2968,9 @@ function get_mediainfo_picture_from_descr(descr){
     }
     mediainfo = mediainfo.replace(/\[\/quote\]/i, '');
     mediainfo = mediainfo.replace(/\[\/?(font|size|quote|color).{0,80}?\]/ig, '');
+    // assast 青蛙多出来一点 Created by [Office]QingWa
+    mediainfo = mediainfo.replace('Created by [Office]QingWa', '');
+
     //获取图片
     var imgs = descr.split(/\[\/quote\]/).pop();
     // assast 图床有些是大写的标签
