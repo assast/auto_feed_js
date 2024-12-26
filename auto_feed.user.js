@@ -95,7 +95,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.20
+// @version      1.0.0.21
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -2968,8 +2968,6 @@ function get_mediainfo_picture_from_descr(descr){
     }
     mediainfo = mediainfo.replace(/\[\/quote\]/i, '');
     mediainfo = mediainfo.replace(/\[\/?(font|size|quote|color).{0,80}?\]/ig, '');
-    // assast 青蛙多出来一点 Created by [Office]QingWa
-    mediainfo = mediainfo.replace('Created by [Office]QingWa', '');
 
     //获取图片
     var imgs = descr.split(/\[\/quote\]/).pop();
@@ -14590,6 +14588,9 @@ function auto_feed() {
         // }
         // assast-简介 ob作为源的时候会多个[color=royalblue][b]MediaInfo[/b][/color]，如果mediainfo到了其他窗口，就会多余，统一替换掉
         raw_info.descr = raw_info.descr.replace('[color=royalblue][b]MediaInfo[/b][/color]','');
+        // assast 青蛙多出来一点 Created by [Office]QingWa
+        raw_info.descr = raw_info.descr.replace('Created by [Office]QingWa','');
+        raw_info.descr = raw_info.descr.replace('[img]https://wawawa.me/team/frogteam.svg[/img]','');
 
         if (['CMCT', 'PTsbao', 'HDPost','HDCity', 'BLU', 'UHD', 'HDSpace', 'HDB', 'iTS', 'PTP', 'BYR', 'GPW', 'HaresClub', 'HDTime',
         'HD-Only', 'HDfans', 'SC', 'MTV', 'NBL', 'avz', 'PHD', 'CNZ', 'ANT', 'TVV', 'xthor', 'HDF', 'OpenCD', 'PigGo', 'RED', 'Tik', 'Aither',
