@@ -2593,8 +2593,8 @@ String.prototype.get_label = function(){
             labels.yy = true;
         }
     }
-    if (my_string.match(/(Audio.*?[\s\S]*?粵語)/i)){
-        var sub_str = my_string.match(/(Audio.*?[\s\S]*?粵語)/i)[0];
+    if (my_string.match(/(Audio.*?[\s\S]*?[粤粵][语語])/i)){
+        var sub_str = my_string.match(/(Audio.*?[\s\S]*?[粤粵][语語])/i)[0];
         if (!sub_str.match(/国家|Subtitles|Subtitle|Text.*?#/i)) {
             labels.yy = true;
         }
