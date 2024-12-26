@@ -95,7 +95,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.19
+// @version      1.0.0.20
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -6897,7 +6897,6 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
         // assast 图片提取新增几个小功能
         $('#dealimg').append(`<input type="button" id="del_img_yb_assast" value="to一般" style="margin-bottom:5px;margin-right:5px">`);
         $('#dealimg').append(`<input type="button" id="del_img_wz_assast" value="to外站" style="margin-bottom:5px;margin-right:5px">`);
-        $('#dealimg').append(`<input type="button" id="del_img_hh_assast" value="toHH" style="margin-bottom:5px;margin-right:5px">`);
         $('#dealimg').append(`<input type="button" id="del_img_ssd_assast" value="toSSD" style="margin-bottom:5px;margin-right:5px">`);
         $('#dealimg').append(`<input type="button" id="preview" value="图片预览" style="margin-bottom:5px;">`);
         $('#dealimg').append(`<input type="button" id="getsource" value="获取大图" style="margin-bottom:5px;margin-left:5px">`);
@@ -6962,7 +6961,8 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
         // assast 图片提取新增3个小功能
         $('#del_img_yb_assast').click((e)=>{
             var origin_str = $('#picture').val();
-            images = origin_str.match(/\[img.*?\]http[^\[\]]*?(jpg|png)\[\/img\]/ig)
+            // images = origin_str.match(/\[img.*?\]http[^\[\]]*?(jpg|png)\[\/img\]/ig)
+            images = origin_str.match(/http[^\[\]]*?(jpg|png)/ig)
 
             resultImgs = [];
             if (images.length) {
@@ -6976,7 +6976,8 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
         })
         $('#del_img_wz_assast').click((e)=>{
             var origin_str = $('#picture').val();
-            images = origin_str.match(/\[img.*?\]http[^\[\]]*?(jpg|png)\[\/img\]/ig)
+            // images = origin_str.match(/\[img.*?\]http[^\[\]]*?(jpg|png)\[\/img\]/ig)
+            images = origin_str.match(/http[^\[\]]*?(jpg|png)/ig)
 
             resultImgs = [];
             if (images.length) {
@@ -6986,19 +6987,6 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
                     resultImgs.push(new_imgs);
                 })
                 $('#result').val(resultImgs.join(""));
-            }
-        })
-        $('#del_img_hh_assast').click((e)=>{
-            var origin_str = $('#picture').val();
-            images = origin_str.match(/\[img.*?\]http[^\[\]]*?(jpg|png)\[\/img\]/ig)
-
-            resultImgs = [];
-            if (images.length) {
-                images.map((item)=>{
-                    var img_url = item.match(/http.*?(png|jpg)/)[0];
-                    resultImgs.push(img_url);
-                })
-                $('#result').val(resultImgs.join(","));
             }
         })
         $('#del_img_ssd_assast').click((e)=>{
