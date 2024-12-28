@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SpringSunday-Torrent-Assistant 测试版魔改
 // @namespace    SpringSunday-Torrent-Assistant-assast
-// @version      1.2.32
+// @version      1.2.35
 // @description  春天审种助手
 // @author       SSD
 // @include      http*://springsunday.net/details.php*
@@ -251,7 +251,13 @@
         var tdlist = $('#outer table:first').find('td');
 
         // Mediainfo 信息
-        mediainfo_s = document.querySelector('.mediainfo-short .codemain').innerHTML.replace(/<br\s*\/?>/gi, '\n').trim();
+        let mediainfoElement = document.querySelector('.mediainfo-short .codemain');
+        if (mediainfoElement) {
+            mediainfo_s = mediainfoElement.innerHTML.replace(/<br\s*\/?>/gi, '\n').trim();
+        } else {
+            $('#assistant-tooltips').append('无「MediaInfo」信息，请检查<br/>');
+            mediainfo_s = '   '
+        }
 
         mediainfo_title = $('.mediainfo-raw .codemain').text();
         for (var i = 0; i < tdlist.length; i++) {
@@ -733,10 +739,12 @@
         let shot_imgs;
         if (shot) {
             shot_imgs = Array.from(shot.querySelectorAll('img')).map(el => el.src);
+        }else{
+            $('#assistant-tooltips').append('无图片信息<br/>');
         }
         $(document).ready(function () {
             let wrongPicList = [];
-            if (shot_imgs.length) {
+            if (shot_imgs && shot_imgs.length) {
                 shot_imgs.forEach(imgSrc => {
                     let valid = pichost_list.some(site => imgSrc.includes(site));
                     if (!valid) {
@@ -1010,7 +1018,7 @@
             }
             if(findDouban('◎上映日期') == ''){
                 $('#editor-tooltips').append('豆瓣未检测到年份，请检查<br/>');
-            }else if(findDouban('◎上映日期').match(/^(\d{4})/)[1] != title_lowercase.match(/\.(18[8-9][0-9]|19[0-9]{2}|200[0-9]|201[0-9]|202[0-9]|2030)\./)[1]){
+            }else if(title_lowercase.match(/\.(18[8-9][0-9]|19[0-9]{2}|200[0-9]|201[0-9]|202[0-9]|2030)\./) && findDouban('◎上映日期').match(/^(\d{4})/)[1] != title_lowercase.match(/\.(18[8-9][0-9]|19[0-9]{2}|200[0-9]|201[0-9]|202[0-9]|2030)\./)[1]){
                 $('#editor-tooltips').append('豆瓣与标题年份不匹配，请检查<br/>');
             }
 
@@ -1443,6 +1451,7 @@
             }
         });
         const comments = [
+            "请补充至少一张带中字的截图",
             "请重新截取 png 格式原图",
             "请参考截图及图床教程 [url=https://springsunday.net/forums.php?action=viewtopic&forumid=10&topicid=18105#pid389691] 教程 [/url] , 如该方法获取截图分辨率错误，右键视频->图像截取->按调整后的比例保存（取消勾选该选项，其余播放器同理）。",
             "盒子截图参考教程：https://springsunday.net/forums.php?action=viewtopic&forumid=3&topicid=19545",
