@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name         auto_feed
+// @name         auto_feed_516182
 // @author       Lenoas 改自 tomorrow505大佬的脚本
 // @thanks       感谢宝大、86大佬、贝壳等大佬提供邀请码;感谢宝大、86大佬提供友情赞助;感谢86大佬、手大、kmeng、黑白、甘蔗等大佬赠予PTP积分.
 // @contributor  daoshuailx/hollips/kmeng/wyyqyl/shmt86/sauterne
 // @description  PT一键转种脚本
 // @match        https://blutopia.cc/torrents?imdb=tt*
-// @namespace    https://greasyfork.org/zh-CN/scripts/424132-auto-feed
+// @namespace    auto_feed_516182
 // @match        http*://*/*detail*.php*
 // @match        https://nzbs.in/*
 // @match        http*://*/detail*.php*
