@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SpringSunday-Torrent-Assistant 测试版魔改
 // @namespace    SpringSunday-Torrent-Assistant-assast
-// @version      1.2.35
+// @version      1.2.38
 // @description  春天审种助手
 // @author       SSD
 // @include      http*://springsunday.net/details.php*
@@ -512,7 +512,7 @@
             audio_chinese = true;
         }
         var screenshot = '';
-        var pngCount = 0;
+        var pngCount = 0,jpgCount =0;
         $('.screenshots-container img').each(function (index, element) {
             var src = $(element).attr('src');
             if (src !== undefined) {
@@ -523,6 +523,9 @@
             }
             if (src.indexOf('.png') >= 0) {
                 pngCount++;
+            }
+            if (src.indexOf('.jpg') >= 0) {
+                jpgCount++;
             }
         });
 
@@ -541,7 +544,7 @@
             $('#assistant-tooltips').append('主标题包含禁发小组，请检查<br/>');
             error = true;
         }
-        if(/(-|@)(FGT|NSBC|BATWEB|GPTHD|DreamHD|BlackTV|CatWEB|Xiaomi|Huawei|MOMOWEB|DDHDTV|SeeWeb|TagWeb|SonyHD|MiniHD|BitsTV|ALT|NukeHD|ZeroTV|HotTV|EntTV|GameHD|SmY|SeeHD|VeryPSP|DWR|XLMV|XJCTV|Mp4Ba|GodDramas|FRDS|BeiTai|Ying|VCB-Studio|toothless)/i.test(title_lowercase)){
+        if(/(-|@)(FGT|NSBC|BATWEB|GPTHD|DreamHD|BlackTV|CatWEB|Xiaomi|Huawei|MOMOWEB|DDHDTV|SeeWeb|TagWeb|SonyHD|MiniHD|BitsTV|ALT|NukeHD|ZeroTV|HotTV|EntTV|GameHD|SmY|SeeHD|VeryPSP|DWR|XLMV|XJCTV|Mp4Ba|GodDramas|FRDS|BeiTai|Ying|VCB-Studio|toothless|YTS\.MX)/i.test(title_lowercase)){
             $('#assistant-tooltips').append('主标题包含禁发小组，请检查<br/>');
             error = true;
         }
@@ -720,8 +723,13 @@
             error = true;
         }
 
-        if (pngCount < 3 && (title_group === 1 || !title_group) && !(type === 7 && resolution === 1 && (is_hdr10 || is_hdr10p || is_hdr_vivid || is_dovi))) {
+        let isWhiteList = ((area === 1 && /-(.*?@)?(PterWEB|CatEDU|CMCTV|HHWEB|OurBits)/i.test(title_lowercase)) || ((type === 5 ||type === 7) && resolution === 1 && (is_hdr10 || is_hdr10p || is_hdr_vivid || is_dovi)))
+
+        if (pngCount < 3 && !isWhiteList) {
             $('#assistant-tooltips').append('PNG 格式的图片未满 3 张<br/>');
+            error = true;
+        }else if((pngCount + jpgCount) < 3) {
+            $('#assistant-tooltips').append('图片未满 3 张<br/>');
             error = true;
         }
 
@@ -869,22 +877,22 @@
             }
             if (
                 (/^(?:Format).*?(DTS-HD|TrueHD|DTS:X|LPCM|Format\s+:\s+PCM\s+Format settings\s+:\s+Little\s+\/\s+Signed)/im.test(
-                    mediainfo_title
-                ) ||
-                 audio === 1 ||
-                 audio === 2 ||
-                 audio === 6) &&
+                        mediainfo_title
+                    ) ||
+                    audio === 1 ||
+                    audio === 2 ||
+                    audio === 6) &&
                 (resolution === 2 ||
-                 resolution === 3 ||
-                 resolution === 4 ||
-                 resolution === 5) &&
+                    resolution === 3 ||
+                    resolution === 4 ||
+                    resolution === 5) &&
                 (type === 6 || type === 8 || type === 9 || type === 10)
             ) {
                 $("#editor-tooltips").append("可替代：音频臃肿<br/>");
             }
-            //          if (!sub_chinese && !is_bd) {
-            //              $('#editor-tooltips').append('可替代：无中字或硬字幕<br/>');
-            //          }
+            if (!sub_chinese && !is_bd) {
+                $('#editor-tooltips').append('请检查截图：无中字或硬字幕<br/>');
+            }
             //压制
             if (/(hds|hdh|Dream)$/i.test(title_lowercase) && [6, 8, 9, 10].includes(type)) {
                 $('#editor-tooltips').append('可替代：不受信小组<br/>');
@@ -957,17 +965,17 @@
                 { areas: ['韩国'], value: 6 },
                 { areas: ['泰国'], value: 9 },
                 { areas: ['阿尔巴尼亚', '爱尔兰', '爱沙尼亚', '安道尔', '奥地利', '白俄罗斯', '保加利亚',
-                          '北马其顿', '比利时', '冰岛', '波黑', '波兰', '丹麦', '德国', '法国',
-                          '梵蒂冈', '芬兰', '荷兰', '黑山', '捷克', '克罗地亚', '拉脱维亚', '立陶宛',
-                          '列支敦士登', '卢森堡', '罗马尼亚', '马耳他', '摩尔多瓦', '摩纳哥', '挪威',
-                          '葡萄牙', '瑞典', '瑞士', '塞尔维亚', '塞浦路斯', '圣马力诺', '斯洛伐克',
-                          '斯洛文尼亚', '乌克兰', '西班牙', '希腊', '匈牙利', '意大利', '英国',
-                          '安提瓜和巴布达', '巴巴多斯', '巴哈马', '巴拿马', '伯利兹', '多米尼加', '多米尼克',
-                          '格林纳达', '哥斯达黎加', '古巴', '海地', '洪都拉斯', '加拿大', '美国', '墨西哥',
-                          '尼加拉瓜', '萨尔瓦多', '圣基茨和尼维斯', '圣卢西亚', '圣文森特和格林纳丁斯',
-                          '特立尼达和多巴哥', '危地马拉', '牙买加', '阿根廷', '巴拉圭', '巴西', '秘鲁',
-                          '玻利维亚', '厄瓜多尔', '哥伦比亚', '圭亚那', '苏里南', '委内瑞拉', '乌拉圭',
-                          '智利', '捷克斯洛伐克','澳大利亚','西德','新西兰'], value: 4 },
+                        '北马其顿', '比利时', '冰岛', '波黑', '波兰', '丹麦', '德国', '法国',
+                        '梵蒂冈', '芬兰', '荷兰', '黑山', '捷克', '克罗地亚', '拉脱维亚', '立陶宛',
+                        '列支敦士登', '卢森堡', '罗马尼亚', '马耳他', '摩尔多瓦', '摩纳哥', '挪威',
+                        '葡萄牙', '瑞典', '瑞士', '塞尔维亚', '塞浦路斯', '圣马力诺', '斯洛伐克',
+                        '斯洛文尼亚', '乌克兰', '西班牙', '希腊', '匈牙利', '意大利', '英国',
+                        '安提瓜和巴布达', '巴巴多斯', '巴哈马', '巴拿马', '伯利兹', '多米尼加', '多米尼克',
+                        '格林纳达', '哥斯达黎加', '古巴', '海地', '洪都拉斯', '加拿大', '美国', '墨西哥',
+                        '尼加拉瓜', '萨尔瓦多', '圣基茨和尼维斯', '圣卢西亚', '圣文森特和格林纳丁斯',
+                        '特立尼达和多巴哥', '危地马拉', '牙买加', '阿根廷', '巴拉圭', '巴西', '秘鲁',
+                        '玻利维亚', '厄瓜多尔', '哥伦比亚', '圭亚那', '苏里南', '委内瑞拉', '乌拉圭',
+                        '智利', '捷克斯洛伐克','澳大利亚','西德','新西兰'], value: 4 },
                 { areas: ['苏联', '俄罗斯'], value: 8 }
             ];
             // 遍历映射表并检查 country 是否包含任何指定地区
@@ -1161,8 +1169,8 @@
                             const isDVDType = type === 10 || type === 3 || (type === 4 && /dvd/i.test(title_lowercase));
                             if (isDVDType) {
                                 const message = `DVD请人工确认截图分辨率，Mediainfo 高度为${cHeight} 宽度为${cWidth}<br>` +
-                                      `可能的正确截图宽度为 高度大于480时：${Math.floor(cWidth / 45 * 64)} 或 ${Math.floor(cWidth / 15 * 16)} ` +
-                                      `高度小等于480时：${Math.floor(cWidth / 9 * 8)} 或 ${Math.floor(cWidth / 27 * 32)}<br>`;
+                                    `可能的正确截图宽度为 高度大于480时：${Math.floor(cWidth / 45 * 64)} 或 ${Math.floor(cWidth / 15 * 16)} ` +
+                                    `高度小等于480时：${Math.floor(cWidth / 9 * 8)} 或 ${Math.floor(cWidth / 27 * 32)}<br>`;
                                 $('#editor-tooltips').append(message);
                                 error_img = true;
                             } else {
@@ -1461,6 +1469,7 @@
             "附加信息-压制、diy、remux作品请保留完整制作信息(包括音视频及字幕来源、处理方式等)。",
             "请参考资源规则中的主标题部分重新命名",
             "截图内容必须包含影视正片有效信息，片头不视为有效信息",
+            "请移除附加信息中除致谢、制作信息(包括音视频及字幕来源、处理方式等)以外的内容。",
             "请使用mediainfo扫描完整的英文版媒体信息 [url=https://springsunday.net/forums.php?action=viewtopic&forumid=16&topicid=14319] 教程 [/url] [url=https://mediaarea.net/MediaInfoOnline] 在线版 [/url]",
             "请参考本帖，添加合适的标签。[url=https://springsunday.net/forums.php?action=viewtopic&forumid=3&topicid=19073] 参考 [/url]",
             "「原生标签」Untouch 原盘指正式出版未经过二次制作的影碟，包括 Blu-ray 和 DVD。",
