@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.23
+// @version      1.0.0.24
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -106,8 +106,8 @@
 // @grant        GM_getResourceText
 // @license      GPL-3.0 License
 // @grant        GM_addStyle
-// @downloadURL https://update.greasyfork.org/scripts/516182/auto_feed.user.js
-// @updateURL https://update.greasyfork.org/scripts/516182/auto_feed.meta.js
+// @downloadURL https://update.greasyfork.org/scripts/516182/auto_feed_516182.user.js
+// @updateURL https://update.greasyfork.org/scripts/516182/auto_feed_516182.meta.js
 // ==/UserScript==
 
 /*
@@ -14931,7 +14931,16 @@ function auto_feed() {
                         check_label(document.getElementsByName('tag_untouch'), '1');
                     }
                     if (labels.hdr10 || labels.hdr10plus) { check_label(document.getElementsByName('tag_hdr'), '1'); }
+                    // assast lemonhd标签错误 HDR Vivid
+                    if (infos.mediainfo.match(/HDR Vivid/)) { check_label(document.getElementsByName('tag_hdr'), '1'); }
+
                     if (labels.db) { check_label(document.getElementsByName('tag_dv'), '1'); }
+                    // assast lemonhd标签错误 剧集 动漫 完结要勾选完结标签
+                    if (raw_info.type == '剧集' || raw_info.type == '动漫') {
+                        if (raw_info.name.match(/S\d+[^E]/i)) {
+                            check_label(document.getElementsByName('is_complete'), '1');;// assast 2024年12月25日12:11:43 合集标签
+                        }
+                    }
                     break;
                 case 'WT-Sakura':
                     if (labels.gy){ check_label(document.getElementsByName('tags[4][]'), '5'); }
@@ -21678,6 +21687,7 @@ function auto_feed() {
             if (raw_info.medium_sel == 'Blu-ray' || raw_info.medium_sel == 'UHD') {
                 size = get_size_from_descr(raw_info.descr);
             }
+            debugger;
             var source_box = document.getElementsByName('type_id')[0];
             if (forward_site == 'ACM') {
                 switch(raw_info.medium_sel){
@@ -21779,6 +21789,19 @@ function auto_feed() {
                         }
                         break;
                     case 'WEB-DL': source_box.options[6].selected = true;
+                }
+            } else if (forward_site == 'BLU') {
+                // assast BLU来源问题
+                switch(raw_info.medium_sel){
+                    case 'UHD': source_box.value = 1; break;
+                    case 'Blu-ray': source_box.value = 1; break;
+                    case 'Remux': source_box.value = 3; break;
+                    case 'HDTV': source_box.value = 6; break;
+                    case 'Encode': source_box.value = 12; break;
+                    case 'WEB-DL': source_box.value = 4;
+                }
+                if (raw_info.name.match(/webrip/i)) {
+                    source_box.value = 5;
                 }
             } else {
                 switch(raw_info.medium_sel){
@@ -22956,7 +22979,8 @@ function auto_feed() {
             var type_dict = {'电影': 401, '剧集': 402, '动漫': 405, '综艺': 403, '音乐': 411, '纪录': 404, 'MV': 406};
             if (type_dict.hasOwnProperty(raw_info.type)){
                 var index = type_dict[raw_info.type];
-                browsecat.val(index);
+                // assast 剧集勾选已完结
+                browsecat.val(index).trigger('change');
             }
             var medium_box = $('select[name="medium_sel"]');
             switch(raw_info.medium_sel){
