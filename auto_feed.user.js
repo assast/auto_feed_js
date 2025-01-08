@@ -826,7 +826,8 @@ if (site_url.match(/^https:\/\/passthepopcorn.me\/torrents.php\?id=\d+&torrentid
     var tid = site_url.match(/torrentid=(\d+)/)[1];
     window.open($(`a[href*="action=download&id=${tid}"]`).attr('href'), '_blank');
 }
-if (site_url.match(/^https:\/\/(blutopia.cc|pt.hdpost.top|darkland.top|eiga.moi|hd-olimpo.club)\/torrents\/download_check/)) {
+// assast aither.cc转完自动下载
+if (site_url.match(/^https:\/\/(blutopia.cc|pt.hdpost.top|darkland.top|eiga.moi|hd-olimpo.club|aither.cc)\/torrents\/download_check/)) {
     window.open($('a[href*="torrents/download"]').has('i').attr('href'), '_blank');
     return;
 }
@@ -21690,6 +21691,8 @@ function auto_feed() {
                     }, 1000);
                 }
             });
+            debugger;// MAL ID默认0
+            $('#automal').val('0');
 
             var size = 0;
             if (raw_info.medium_sel == 'Blu-ray' || raw_info.medium_sel == 'UHD') {
