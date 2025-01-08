@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.24
+// @version      1.0.0.25
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -7126,6 +7126,7 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
                     }
                 });
                 if (flag) {
+                    debugger;
                     var imgbb_tasks = [];
                     imgbb_urls.map(item=>{
                         var imgbb_show_url = 'https://ibb.co/' + item.match(/https:\/\/i.ibb.co\/(.*?)\//)[1];
@@ -12062,6 +12063,7 @@ function auto_feed() {
             });
         }
 
+        debugger;
         switch (origin_site) {
             case 'PTer':
                 try {
@@ -12099,7 +12101,13 @@ function auto_feed() {
                     raw_info.labels += 100;
                 }
                 break;
-            case 'HHClub': case 'DaJiao': case '象岛': case 'AGSV':
+            //assast 一些站点硬字幕转出问题
+            case 'LemonHD':
+                if ($('span.tag_zz').length) {
+                    raw_info.labels += 100;
+                }
+                break;
+            case 'HHClub': case 'DaJiao': case '象岛': case 'AGSV': case 'QingWa': case 'UBits': case '麒麟': case 'ZMPT': case 'CarPt': case 'HDfans':
                 var tr = $('td:contains(标签)').last().parent();
                 if (tr.find('span:contains("国语")').length) {
                     raw_info.labels += 1;
