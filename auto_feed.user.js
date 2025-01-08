@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.26
+// @version      1.0.0.27
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -22009,7 +22009,8 @@ function auto_feed() {
                 }
                 container.css({'height': '600px'});
                 var pic_info;
-                if (forward_site == 'BLU' || forward_site == 'Tik'){
+                // assast 图片自动350
+                if (forward_site == 'BLU' || forward_site == 'Tik' || forward_site == 'Aither'){
                     pic_info = deal_img_350_ptpimg(infos.pic_info);
                     if (raw_info.name.match(/DV HDR/i)) {
                         pic_info = '[CODE]This release contains a derived Dolby Vision profile 8 layer. Comparisons not required as DV and HDR are from same provider.[/CODE]\n\n' + pic_info;
