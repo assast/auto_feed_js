@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.34
+// @version      1.0.0.35
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -148,6 +148,55 @@
     20230708：修复部分bug。适配RouSi(by shmt86)。
     20240526：适配新架构站点YemaPT(by lorentz)。
 */
+function addTorrentUrlInput() {
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = raw_info.torrent_url || '未获取到 torrent_url';
+    input.readOnly = true;
+    input.style.display = 'none';
+
+    input.id = 'tDownUrl'; // 添加id
+    input.style.position = 'fixed';
+    input.style.top = '20px';
+    input.style.left = '20px';
+    input.style.zIndex = '9999';
+    input.style.width = '500px';
+    input.style.padding = '5px';
+    input.style.border = '1px solid #ccc';
+    input.style.borderRadius = '4px';
+    input.style.backgroundColor = '#fff';
+    input.style.fontSize = '12px';
+
+    input.addEventListener('click', function() {
+        this.select();
+    });
+
+    document.body.appendChild(input);
+}
+
+// 检查 raw_info 是否存在的函数
+function checkRawInfo() {
+    if (typeof raw_info !== 'undefined' && raw_info.torrent_url) {
+        addTorrentUrlInput();
+        return true;
+    }
+    return false;
+}
+
+// 如果立即检查失败，则设置一个间隔检查
+if (!checkRawInfo()) {
+    const interval = setInterval(() => {
+        if (checkRawInfo()) {
+            clearInterval(interval);
+        }
+    }, 1000); // 每秒检查一次
+
+    // 60秒后停止检查
+    setTimeout(() => {
+        clearInterval(interval);
+    }, 60000);
+}
+
 
 var site_url = decodeURI(location.href);
 const TIMEOUT = 6000;
@@ -822,6 +871,7 @@ if (site_url.match(/^https:\/\/api.iyuu.cn\/ptgen\/\?imdb=/)){
     }
     return;
 }
+
 if (site_url.match(/^https:\/\/passthepopcorn.me\/torrents.php\?id=\d+&torrentid=\d+#separator#/)) {
     var tid = site_url.match(/torrentid=(\d+)/)[1];
     window.open($(`a[href*="action=download&id=${tid}"]`).attr('href'), '_blank');
