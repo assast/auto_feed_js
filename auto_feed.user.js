@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.32
+// @version      1.0.0.33
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -6876,6 +6876,7 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
         $('#dealimg').append(`<input type="button" id="del_img_yb_assast" value="to一般" style="margin-bottom:5px;margin-right:5px">`);
         $('#dealimg').append(`<input type="button" id="del_img_wz_assast" value="to外站" style="margin-bottom:5px;margin-right:5px">`);
         $('#dealimg').append(`<input type="button" id="del_img_ssd_assast" value="toSSD" style="margin-bottom:5px;margin-right:5px">`);
+        $('#dealimg').append(`<input type="button" id="space2none_assast" value="空格->空白" style="margin-bottom:5px;margin-right:5px">`);
         $('#dealimg').append(`<input type="button" id="preview" value="图片预览" style="margin-bottom:5px;">`);
         $('#dealimg').append(`<input type="button" id="getsource" value="获取大图" style="margin-bottom:5px;margin-left:5px">`);
         $('#dealimg').append(`<input type="button" id="send_ptpimg" value="转ptpimg" style="margin-bottom:5px;margin-left:5px">`);
@@ -6937,6 +6938,12 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
             $('#picture').val(origin_str);
         })
         // assast 图片提取新增3个小功能
+        $('#space2none_assast').click((e)=>{
+            var origin_str = $('#picture').val();
+            origin_str = origin_str.replaceAll(' ', '');
+            $('#picture').val(origin_str);
+        })
+        
         $('#del_img_yb_assast').click((e)=>{
             var origin_str = $('#picture').val();
             // images = origin_str.match(/\[img.*?\]http[^\[\]]*?(jpg|png)\[\/img\]/ig)
