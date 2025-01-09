@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.29
+// @version      1.0.0.30
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -6954,18 +6954,7 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
         })
         $('#del_img_wz_assast').click((e)=>{
             var origin_str = $('#picture').val();
-            // images = origin_str.match(/\[img.*?\]http[^\[\]]*?(jpg|png)\[\/img\]/ig)
-            images = origin_str.match(/http[^\[\]]*?(jpg|png)/ig)
-
-            resultImgs = [];
-            if (images.length) {
-                images.map((item)=>{
-                    var img_url = item.match(/http.*?(png|jpg)/)[0];
-                    var new_imgs = `[url=${img_url}][img=350x350]${img_url}[/img][/url]`;
-                    resultImgs.push(new_imgs);
-                })
-                $('#result').val(resultImgs.join(""));
-            }
+            $('#result').val(del_img_wz_assast_fun(origin_str));
         })
         $('#del_img_ssd_assast').click((e)=>{
             var origin_str = $('#picture').val();
@@ -7215,7 +7204,19 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
         return;
     }, 1000)
 }
+function del_img_wz_assast_fun(origin_str){
+    images = origin_str.match(/http[^\[\]]*?(jpg|png)/ig)
 
+    resultImgs = [];
+    if (images.length) {
+        images.map((item)=>{
+            var img_url = item.match(/http.*?(png|jpg)/)[0];
+            var new_imgs = `[url=${img_url}][img=350x350]${img_url}[/img][/url]`;
+            resultImgs.push(new_imgs);
+        })
+    }
+    return resultImgs.join("");
+}
 //长mediainfo转换简洁版mediainfo
 function simplifyMI(mediainfo_text, site){
     debugger;
@@ -19513,7 +19514,7 @@ function auto_feed() {
                     if (textarea && textarea.selectionStart != undefined && textarea.selectionEnd != undefined){
                         var chosen_value = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
                         if (chosen_value) {
-                            $('#upload-form-description').val(text.replace(chosen_value, chosen_value.replace(/\[img\]/g, '[img=350]')));
+                            $('#upload-form-description').val(text.replace(chosen_value, del_img_wz_assast_fun(chosen_value)));
                         } else {
                             $('#upload-form-description').val(text.replace(/\[img\]/g, '[img=350x350]'));
                         }
@@ -22027,7 +22028,7 @@ function auto_feed() {
                         if (textarea && textarea.selectionStart != undefined && textarea.selectionEnd != undefined){
                             var chosen_value = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
                             if (chosen_value) {
-                                $('#bbcode-description').val(text.replace(chosen_value, chosen_value.replace(/\[img\]/g, '[img=350x350]')));
+                                $('#bbcode-description').val(text.replace(chosen_value, del_img_wz_assast_fun(chosen_value)));
                             } else {
                                 $('#bbcode-description').val(text.replace(/\[img\]/g, '[img=350x350]'));
                             }
@@ -22439,7 +22440,7 @@ function auto_feed() {
                     if (textarea && textarea.selectionStart != undefined && textarea.selectionEnd != undefined){
                         var chosen_value = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
                         if (chosen_value) {
-                            $('#bbcode-description').val(text.replace(chosen_value, chosen_value.replace(/\[img\]/g, '[img=350x350]')));
+                            $('#bbcode-description').val(text.replace(chosen_value, del_img_wz_assast_fun(chosen_value)));
                         } else {
                             $('#bbcode-description').val(text.replace(/\[img\]/g, '[img=350x350]'));
                         }
