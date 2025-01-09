@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.31
+// @version      1.0.0.32
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -2109,18 +2109,18 @@ function deal_img_350(pic_info) {
 
 function deal_img_350_ptpimg(pic_info) {
     // assast 不知道为啥ptpimg单独写，统一的试试
-    return deal_img_350(pic_info);
-    // var imgs = pic_info.match(/\[img\].*?(jpg|png).*?\[\/img\]/g);
-    // if (imgs) {
-    //     imgs.map((item)=>{
-    //         var img_url = item.match(/http.*?(png|jpg)/)[0];
-    //         if (img_url.match(/ptpimg.me/)) {
-    //             var new_imgs = `[url=${img_url}]${item.replace('[img]', '[img=350]')}[/url]`;
-    //             pic_info = pic_info.replace(item, new_imgs);
-    //         }
-    //     })
-    // }
-    // return pic_info;
+    // return deal_img_350(pic_info);
+    var imgs = pic_info.match(/\[img\].*?(jpg|png).*?\[\/img\]/g);
+    if (imgs) {
+        imgs.map((item)=>{
+            var img_url = item.match(/http.*?(png|jpg)/)[0];
+            if (img_url.match(/ptpimg.me/)) {
+                var new_imgs = `[url=${img_url}]${item.replace('[img]', '[img=350x350]')}[/url]`;
+                pic_info = pic_info.replace(item, new_imgs);
+            }
+        })
+    }
+    return pic_info;
 }
 
 //标签节点连带转换成字符串
