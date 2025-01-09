@@ -6929,7 +6929,7 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
 
         $('#getsource').click((e)=>{
             var origin_str = $('#picture').val();
-            get_full_size_picture_urls(null, origin_str, $('#result'), true);
+            get_full_size_picture_urls(null, del_img_yb_assast_fun(origin_str), $('#result'), true);
         });
 
         $('#enter2space').click((e)=>{
@@ -6946,18 +6946,7 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
         
         $('#del_img_yb_assast').click((e)=>{
             var origin_str = $('#picture').val();
-            // images = origin_str.match(/\[img.*?\]http[^\[\]]*?(jpg|png)\[\/img\]/ig)
-            images = origin_str.match(/http[^\[\]]*?(jpg|png)/ig)
-
-            resultImgs = [];
-            if (images.length) {
-                images.map((item)=>{
-                    var img_url = item.match(/http.*?(png|jpg)/)[0];
-                    var new_imgs = `[img]${img_url}[/img]`;
-                    resultImgs.push(new_imgs);
-                })
-                $('#result').val(resultImgs.join("\n"));
-            }
+            $('#result').val(del_img_yb_assast_fun(origin_str)); 
         })
         $('#del_img_wz_assast').click((e)=>{
             var origin_str = $('#picture').val();
@@ -7219,6 +7208,19 @@ function del_img_wz_assast_fun(origin_str){
         images.map((item)=>{
             var img_url = item.match(/http.*?(png|jpg)/)[0];
             var new_imgs = `[url=${img_url}][img=350x350]${img_url}[/img][/url]`;
+            resultImgs.push(new_imgs);
+        })
+    }
+    return resultImgs.join("");
+}
+function del_img_yb_assast_fun(origin_str){
+    images = origin_str.match(/http[^\[\]]*?(jpg|png)/ig)
+
+    resultImgs = [];
+    if (images.length) {
+        images.map((item)=>{
+            var img_url = item.match(/http.*?(png|jpg)/)[0];
+            var new_imgs = `[img]${img_url}[/img]`;
             resultImgs.push(new_imgs);
         })
     }
