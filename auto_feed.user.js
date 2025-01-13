@@ -153,7 +153,7 @@ function addTorrentUrlInput() {
     input.type = 'text';
     input.value = raw_info.torrent_url || '未获取到 torrent_url';
     input.readOnly = true;
-    input.style.display = '';
+    input.style.display = 'none';
 
     input.id = 'tDownUrl'; // 添加id
     input.style.position = 'fixed';
