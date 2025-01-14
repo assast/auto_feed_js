@@ -12,11 +12,13 @@
 
 // @grant        GM_xmlhttpRequest
 // @license MIT
+// @downloadURL https://update.greasyfork.org/scripts/523711/daemon%E6%8F%92%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88.user.js
+// @updateURL https://update.greasyfork.org/scripts/523711/daemon%E6%8F%92%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88.meta.js
 // ==/UserScript==
 // daemon接口配置
-var apiurl = 'https://nc.lenoas.de:8443/api/add_torrent';
-var fileapiurl = 'https://nc.lenoas.de:8443/api/upload';
-var deployapiurl = 'https://nc.lenoas.de:8443/api/force_deploy';
+var apiurl = 'http://192.168.192.217:17777/api/add_torrent';
+var fileapiurl = 'http://192.168.192.217:17777/api/upload';
+var deployapiurl = 'http://192.168.192.217:17777/api/force_deploy';
 
 // 页面加载完成后执行
 var site_url = decodeURI(window.location.href);
