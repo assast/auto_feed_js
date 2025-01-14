@@ -11,6 +11,7 @@
 // @match        https://totheglory.im/t/*
 
 // @grant        GM_xmlhttpRequest
+// @license MIT
 // ==/UserScript==
 // daemon接口配置
 var apiurl = 'https://nc.lenoas.de:8443/api/add_torrent';

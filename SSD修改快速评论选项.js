@@ -8,6 +8,7 @@
 // @include      http*://springsunday.net/torrents.php*
 // @include      http*://springsunday.net/offers.php*
 // @grant        none
+// @license MIT
 // ==/UserScript==
 
 (function() {
