@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.37
+// @version      1.0.0.38
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -3566,20 +3566,20 @@ function init_remote_server_button() {
             background-color: #333;
             border: 1px solid #ccc;
         }
-        
+
         #sidebar ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-        
+
         #sidebar li {
             list-style: none;
             padding: 0;
             margin: 0;
             width: 100%;
         }
-        
+
         #sidebar li a {
             display: flex;
             justify-content: center;
@@ -3588,11 +3588,11 @@ function init_remote_server_button() {
             text-decoration: none;
             color: #fff;
         }
-        
+
         #sidebar li a:hover {
             background-color: #555;
         }
-        
+
         #sidebar .submenu {
             display: none;
             position: absolute;
@@ -3602,18 +3602,18 @@ function init_remote_server_button() {
             background-color: #444;
             border: 1px solid #ccc;
         }
-        
+
         #sidebar li:hover .submenu {
             display: block;
         }
-        
+
         #sidebar .submenu li a {
             display: flex;
             justify-content: center;
             align-items: center;
             color: #eee;
         }
-        
+
         #sidebar .submenu li a:hover {
             background-color: #666;
         }
@@ -3622,7 +3622,7 @@ function init_remote_server_button() {
         <div id="sidebar">
             <ul id="sidebar_ul">
             </ul>
-        </div> 
+        </div>
     `);
     var qb = remote_server.qbittorrent;
     for (let server in qb) {
@@ -6994,10 +6994,10 @@ if (site_url.match(/^https:\/\/.*?usercp.php\?action=personal(#setting|#ptgen|#m
             origin_str = origin_str.replaceAll(' ', '');
             $('#picture').val(origin_str);
         })
-        
+
         $('#del_img_yb_assast').click((e)=>{
             var origin_str = $('#picture').val();
-            $('#result').val(del_img_yb_assast_fun(origin_str)); 
+            $('#result').val(del_img_yb_assast_fun(origin_str));
         })
         $('#del_img_wz_assast').click((e)=>{
             var origin_str = $('#picture').val();
@@ -14598,7 +14598,7 @@ function auto_feed() {
         raw_info.descr = raw_info.descr.replace('Created by [Office]QingWa','');
         raw_info.descr = raw_info.descr.replace('[img]https://wawawa.me/team/frogteam.svg[/img]','');
 
-        if (['CMCT', 'PTsbao', 'HDPost','HDCity', 'BLU', 'UHD', 'HDSpace', 'HDB', 'iTS', 'PTP', 'BYR', 'GPW', 'HaresClub', 'HDTime', 
+        if (['CMCT', 'PTsbao', 'HDPost','HDCity', 'BLU', 'UHD', 'HDSpace', 'HDB', 'iTS', 'PTP', 'BYR', 'GPW', 'HaresClub', 'HDTime',
         'HD-Only', 'HDfans', 'SC', 'MTV', 'NBL', 'avz', 'PHD', 'CNZ', 'ANT', 'TVV', 'xthor', 'HDF', 'OpenCD', 'PigGo', 'RED', 'Tik', 'Aither',
         'SugoiMusic', 'CG', 'ZHUQUE', 'MTeam', 'FNP', 'OnlyEncodes', 'YemaPT', 'DarkLand', '影', 'PTLGS', 'ReelFliX'].indexOf(forward_site) < 0){
             if (forward_site == 'HDT') {
@@ -14909,7 +14909,21 @@ function auto_feed() {
                         $('input[name="option_sel[]"][value=21]').attr('checked', true);
                     }
                     break;
-                case 'HDDolby': case 'PThome': case 'HDHome': case 'Audiences':
+                case 'Audiences':
+                    if (labels.gy){ check_label(document.getElementsByName('tags[]'), 'gy'); }
+                    if (labels.yy){ check_label(document.getElementsByName('tags[]'), 'yy'); }
+                    if (labels.zz){ check_label(document.getElementsByName('tags[]'), 'zz'); }
+                    if (labels.diy){
+                        check_label(document.getElementsByName('tags[]'), 'diy');
+                    }
+                    // assast 人人HDR Vivid 要勾hdr10标签
+                    if (labels.hdr10 || raw_info.descr.match(/HDR Vivid/)) { check_label(document.getElementsByName('tags[]'), 'hdr10'); }
+                    if (labels.hdr10plus) { check_label(document.getElementsByName('tags[]'), 'hdrm'); }
+                    if (labels.db) {check_label(document.getElementsByName('tags[]'), 'db');}
+                    if (labels.complete) { check_label(document.getElementsByName('tags[]'), 'wj'); }
+
+                    break;
+                case 'HDDolby': case 'PThome': case 'HDHome':
                     if (labels.gy){ check_label(document.getElementsByName('tags[]'), 'gy'); }
                     if (labels.yy){ check_label(document.getElementsByName('tags[]'), 'yy'); }
                     if (labels.zz){ check_label(document.getElementsByName('tags[]'), 'zz'); }
