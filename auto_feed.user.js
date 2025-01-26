@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.41
+// @version      1.0.0.42
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -2609,9 +2609,15 @@ String.prototype.get_label = function(){
 
     // assast 国语标签判断逻辑修复
     debugger;
-    if (my_string.match(/([^多]国.{0,3}语|国.{0,3}配|台.{0,3}语|台.{0,3}配)|(Audio.*?[\s\S]*?Chinese|Audio.*?[\s\S]*?mandarin)/i)){
-        var sub_str = my_string.match(/([^多]国.{0,3}语|国.{0,3}配|台.{0,3}语|台.{0,3}配)|(Audio.*?[\s\S]*?Chinese|Audio.*?[\s\S]*?mandarin)/i)[0];
-        if (!sub_str.match(/美国手语|国家|Subtitles|Subtitle|Text.*?#/i)) {
+    // if (my_string.match(/([^多]国.{0,3}语|国.{0,3}配|台.{0,3}语|台.{0,3}配)|(Audio.*?[\s\S]*?Chinese|Audio.*?[\s\S]*?mandarin)/i)){
+    //     var sub_str = my_string.match(/([^多]国.{0,3}语|国.{0,3}配|台.{0,3}语|台.{0,3}配)|(Audio.*?[\s\S]*?Chinese|Audio.*?[\s\S]*?mandarin)/i)[0];
+    //     if (!sub_str.match(/美国手语|国家|Subtitles|Subtitle|Text.*?#/i)) {
+    //         labels.gy = true;
+    //     }
+    // }
+    if (my_string.match(/(Audio.*?[\s\S]*?Chinese|Audio.*?[\s\S]*?mandarin)/i)){
+        var sub_str = my_string.match(/(Audio.*?[\s\S]*?Chinese|Audio.*?[\s\S]*?mandarin)/i)[0];
+        if (!sub_str.match(/Subtitles|Subtitle|Text.*?#/i)) {
             labels.gy = true;
         }
     }
