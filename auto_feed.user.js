@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.39
+// @version      1.0.0.40
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -14415,6 +14415,16 @@ function auto_feed() {
                 raw_info.name = raw_info.name.replace(/(DDP|DD|AAC|HDMA|TrueHD|DTS.HD|DTS|PCM|FLAC)[ \.](.*?)(\d.\d)/i, '$1 $2 $3 Atmos').replace(/ +/g, ' ');
             }
         }
+        if (forward_site == 'Audiences') { //assast ptpimg 转Audiences 去掉url标签 2025年01月26日13:30:58
+            debugger;
+            var img_urls = raw_info.descr.match(/\[url=https?:\/\/ptpimg\.me.*?\]\[img\].*?\[\/img\]\[\/url\]/ig);
+            for (i=0; i<img_urls.length; i++){
+                var tmpimg = img_urls[i].match(/\[img\].*?\[\/img\]/ig);
+                raw_info.descr = raw_info.descr.replace(img_urls[i], tmpimg[0]);
+            }
+
+        }
+
         if (forward_site == 'PTer' || forward_site == 'Dragon') {
             function re_build_name(channels, name) {
                 var label = ''; label_str = '';
