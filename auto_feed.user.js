@@ -96,7 +96,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.38
+// @version      1.0.0.39
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -7265,7 +7265,7 @@ function del_img_wz_assast_fun(origin_str){
     return resultImgs.join("");
 }
 function del_img_yb_assast_fun(origin_str){
-    images = origin_str.match(/http[^\[\]]*?(jpg|png)/ig)
+    images = origin_str.match(/\[img.*?\]http[^\[\]]*?(jpg|png)\[\/img\]/ig)
 
     resultImgs = [];
     if (images.length) {
