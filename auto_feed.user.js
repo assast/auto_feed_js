@@ -95,7 +95,7 @@
 // @require      https://greasyfork.org/scripts/444988-music-helper/code/music-helper.js?version=1268106
 // @icon         https://kp.m-team.cc//favicon.ico
 // @run-at       document-end
-// @version      1.0.0.43
+// @version      1.0.0.44
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setClipboard
 // @grant        GM_setValue
@@ -27348,4 +27348,56 @@ if (origin_site == 'ZHUQUE' && site_url.match(/^https:\/\/zhuque.in\/torrent\/in
     });
 } else {
     setTimeout(auto_feed, sleep_time);
+}
+
+function addTorrentUrlInput() {
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = raw_info.torrent_url || '未获取到 torrent_url';
+    input.readOnly = true;
+    input.style.display = 'none';
+
+    input.id = 'tDownUrl'; // 添加id
+    input.style.position = 'fixed';
+    input.style.top = '20px';
+    input.style.left = '20px';
+    input.style.zIndex = '9999';
+    input.style.width = '500px';
+    input.style.padding = '5px';
+    input.style.border = '1px solid #ccc';
+    input.style.borderRadius = '4px';
+    input.style.backgroundColor = '#fff';
+    input.style.fontSize = '12px';
+
+    input.addEventListener('click', function() {
+        this.select();
+    });
+
+    document.body.appendChild(input);
+}
+
+// 检查 raw_info 是否存在的函数
+function checkRawInfo() {
+    if (typeof raw_info !== 'undefined' && raw_info.torrent_url) {
+        if(origin_site == 'MTeam' && raw_info.torrent_url.match(/detail/)) {
+            return false;
+        }
+        addTorrentUrlInput();
+        return true;
+    }
+    return false;
+}
+
+// 如果立即检查失败，则设置一个间隔检查
+if (!checkRawInfo()) {
+    const interval = setInterval(() => {
+        if (checkRawInfo()) {
+            clearInterval(interval);
+        }
+    }, 1000); // 每秒检查一次
+
+    // 60秒后停止检查
+    setTimeout(() => {
+        clearInterval(interval);
+    }, 60000);
 }
